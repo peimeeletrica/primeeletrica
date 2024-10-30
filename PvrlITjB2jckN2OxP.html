@@ -1,0 +1,750 @@
+<html><head><base href="https://primeeletrica.com.br/"/>
+<title>Prime Elétrica - Serviços Elétricos Profissionais</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<style>
+:root {
+    --primary-color: #FFD700;
+    --secondary-color: #1E3D59;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+}
+
+.navbar {
+    background-color: var(--secondary-color);
+}
+
+.navbar-brand {
+    color: var(--primary-color) !important;
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.nav-link {
+    color: white !important;
+}
+
+.hero-section {
+    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1621905251189-08b45d6a269e?ixlib=rb-4.0.3');
+    background-size: cover;
+    color: white;
+    padding: 100px 0;
+    text-align: center;
+}
+
+.service-card {
+    border: none;
+    transition: transform 0.3s;
+    margin-bottom: 20px;
+    height: 100%; /* Make all cards same height */
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-check {
+    margin-bottom: 10px;
+}
+
+.card-title {
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+    line-height: 1.2;
+}
+
+.service-tooltip {
+    position: absolute;
+    display: none;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 5px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    z-index: 1000;
+    max-width: 200px;
+    top: 0;
+    right: -210px; /* Position tooltip to the right of the card */
+}
+
+.service-card:hover .service-tooltip {
+    display: block;
+}
+
+.footer {
+    background-color: var(--secondary-color);
+    color: white;
+    padding: 20px 0;
+}
+
+.contact-form {
+    background-color: #f8f9fa;
+    padding: 30px;
+    border-radius: 10px;
+}
+
+.gallery-img {
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.service-checkbox {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+.total-section {
+    background-color: var(--secondary-color);
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 30px;
+    position: sticky;
+    bottom: 20px;
+}
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="/">Prime Elétrica</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Serviços</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/galeria">Galeria</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/sistema-solar">Sistema Solar</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/contato">Contato</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Página 1 - Serviços -->
+<div id="servicos" class="container mt-5 pt-5">
+    <div class="hero-section mb-5">
+        <h1>Prime Elétrica</h1>
+        <p class="lead">Soluções elétricas profissionais para sua casa ou empresa</p>
+    </div>
+
+    <h2 class="text-center mb-5">Selecione os Serviços Desejados</h2>
+    <p class="text-center mb-4 text-muted">* Os valores apresentados são referências e podem sofrer alterações de acordo com a complexidade e dificuldade do serviço.</p>
+
+    <!-- Add this right before the services list -->
+    <div class="row mb-4">
+        <div class="col-md-6 mx-auto">
+            <div class="input-group">
+                <span class="input-group-text">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                    </svg>
+                </span>
+                <input type="text" class="form-control" id="searchServicos" placeholder="Pesquisar serviços..." onkeyup="filtrarServicos()">
+            </div>
+        </div>
+    </div>
+
+    <div class="row" id="lista-servicos">
+        <!-- Os serviços serão carregados aqui via JavaScript -->
+    </div>
+
+    <div class="total-section">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <h3>Total dos Serviços Selecionados: <span id="total-valor">R$ 0,00</span></h3>
+            </div>
+            <div class="col-md-4">
+                <button class="btn btn-primary btn-lg w-100" onclick="contratarServicos()" id="btn-contratar" disabled>
+                    Contratar Serviços
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Página 2 - Galeria -->
+<div id="galeria" class="container mt-5 pt-5" style="display: none;">
+    <h2 class="text-center mb-5">Galeria de Trabalhos</h2>
+    <div class="row">
+        <div class="col-md-4">
+            <img src="https://images.unsplash.com/photo-1621905252507-b35492cc74b4" alt="Instalação elétrica residencial" class="img-fluid gallery-img" width="400" height="300">
+        </div>
+        <div class="col-md-4">
+            <img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e" alt="Manutenção elétrica industrial" class="img-fluid gallery-img" width="400" height="300">
+        </div>
+        <div class="col-md-4">
+            <img src="https://images.unsplash.com/photo-1621905252569-5fd4b53d394c" alt="Instalação de painéis solares" class="img-fluid gallery-img" width="400" height="300">
+        </div>
+    </div>
+</div>
+
+<!-- Página 3 - Contato -->
+<div id="contato" class="container mt-5 pt-5" style="display: none;">
+    <h2 class="text-center mb-5">Entre em Contato</h2>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="contact-info">
+                <h3>Informações de Contato</h3>
+                <p><i class="fas fa-phone"></i> (31) 98713-8363</p>
+                <p><i class="fas fa-envelope"></i> primeeletricasolar@gmail.com</p>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <form class="contact-form" id="contactForm">
+                <div class="mb-3">
+                    <label for="nome" class="form-label">Nome</label>
+                    <input type="text" class="form-control" id="nome" required>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">E-mail</label>
+                    <input type="email" class="form-control" id="email" required>
+                </div>
+                <div class="mb-3">
+                    <label for="mensagem" class="form-label">Mensagem</label>
+                    <textarea class="form-control" id="mensagem" rows="4" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Enviar Mensagem</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Página 4 - Sistema Solar -->
+<div id="sistema-solar" class="container mt-5 pt-5" style="display: none;">
+    <h2 class="text-center mb-5">Calculadora de Sistema Solar</h2>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card p-4">
+                <form id="solarForm">
+                    <div class="mb-3">
+                        <label for="contaEnergia" class="form-label">Valor médio da conta de energia (R$)</label>
+                        <input type="number" class="form-control" id="contaEnergia" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Calcular Sistema Necessário</button>
+                </form>
+                
+                <div id="resultadoSolar" class="mt-4" style="display: none;">
+                    <h4>Resultado do Cálculo:</h4>
+                    <div class="alert alert-info">
+                        <p><strong>Consumo Mensal Estimado:</strong> <span id="consumoMensal">0</span> kWh</p>
+                        <p><strong>Número de Placas Recomendado:</strong> <span id="numeroPlacas">0</span></p>
+                        <p><strong>Potência Total do Sistema:</strong> <span id="potenciaSistema">0</span> kWp</p>
+                        <p class="mb-0"><em>* Cálculo com margem de segurança de 40% incluída</em></p>
+                    </div>
+                    <button class="btn btn-primary btn-lg w-100 mt-3" onclick="contratarSistemaSolar()">
+                        Contratar Sistema Solar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+const servicos = [
+    {
+        id: 1,
+        titulo: "INSTALAÇÃO ARANDELA, PENDENTE OU SPOT COMUM",
+        preco: 55.00
+    },
+    {
+        id: 2,
+        titulo: "INSTALAÇÃO LÂMPADA FLUORESCENTE/ LED (TUBULAR)",
+        preco: 60.00
+    },
+    {
+        id: 3,
+        titulo: "LUSTRES SIMPLES / LUMINÁRIA",
+        preco: 80.00
+    },
+    {
+        id: 4,
+        titulo: "LUSTRES GRANDES / LUMINÁRIA",
+        preco: 120.00
+    },
+    {
+        id: 5,
+        titulo: "REFLETOR DE JARDIM",
+        preco: 90.00
+    },
+    {
+        id: 6,
+        titulo: "REFLETOR DE POSTE COMUM",
+        preco: 120.00
+    },
+    {
+        id: 7,
+        titulo: "REFLETOR DE POSTE COM LÂMPADA A VAPOR",
+        preco: 120.00
+    },
+    {
+        id: 8,
+        titulo: "INTERRUPTOR SIMPLES ou PULSADOR",
+        preco: 40.00
+    },
+    {
+        id: 9,
+        titulo: "INTERRUPTOR TREE-WAY / FOUR WAY",
+        preco: 60.00
+    },
+    {
+        id: 10,
+        titulo: "INTERRUPTOR DUPLO / BIPOLAR",
+        preco: 50.00
+    },
+    {
+        id: 11,
+        titulo: "INTERRUPTOR E TOMADA (Juntos)",
+        preco: 50.00
+    },
+    {
+        id: 12,
+        titulo: "REATOR DE LÂMPADA A VAPOR",
+        preco: 70.00
+    },
+    {
+        id: 13,
+        titulo: "FOTOCÉLULA / SENSOR PRESENÇA",
+        preco: 60.00
+    },
+    {
+        id: 14,
+        titulo: "REFLETOR LED + FOTOCÉLULA ou SENSOR DE PRESENÇA",
+        preco: 70.00
+    },
+    {
+        id: 15,
+        titulo: "LUMINÁRIA DE EMERGÊNCIA DE SOBREPOR",
+        preco: 60.00
+    },
+    {
+        id: 16,
+        titulo: "LUMINÁRIA DE EMERGÊNCIA DE EMBUTIR (caixinha 2x4)",
+        preco: 70.00
+    },
+    {
+        id: 17,
+        titulo: "INSTALAÇÃO PERFIL DE LED (O METRO linear)",
+        preco: 140.00
+    },
+    {
+        id: 18,
+        titulo: "LUMINÁRIA TUBULAR - TROCA SISTEMA DE REATOR PARA LED",
+        preco: 70.00
+    },
+    {
+        id: 19,
+        titulo: "TOMADA SIMPLES",
+        preco: 40.00
+    },
+    {
+        id: 20,
+        titulo: "TOMADA DUPLA",
+        preco: 50.00
+    },
+    {
+        id: 21,
+        titulo: "TOMADA TRIPLA",
+        preco: 55.00
+    },
+    {
+        id: 22,
+        titulo: "TOMADA DE PISO E / OU TELEFONE",
+        preco: 40.00
+    },
+    {
+        id: 23,
+        titulo: "TOMADA INDUSTRIAL (3P+t)",
+        preco: 80.00
+    },
+    {
+        id: 24,
+        titulo: "INSTALAÇÃO TOMADA DE SOBREPOR COM CANALETA",
+        preco: 55.00
+    },
+    {
+        id: 25,
+        titulo: "Passagem de cabo ente 1,5mm² ate 4mm² em eletroduto o metro",
+        preco: 3.50
+    },
+    {
+        id: 26,
+        titulo: "VENTILADOR DE TETO",
+        preco: 120.00
+    },
+    {
+        id: 27,
+        titulo: "VENTILADOR DE PAREDE",
+        preco: 90.00
+    },
+    {
+        id: 28,
+        titulo: "ENTRADA MONOFÁSICA (QM PARA QDC)",
+        preco: 190.00
+    },
+    {
+        id: 29,
+        titulo: "ENTRADA BIFÁSICA OU TRIFÁSICA (QM PARA QDC)",
+        preco: 250.00
+    },
+    {
+        id: 30,
+        titulo: "ALIMENTAÇÃO PARA MOTORES",
+        preco: 180.00
+    },
+    {
+        id: 31,
+        titulo: "CURTO CIRCUITO MONOFÁSICO",
+        preco: 150.00
+    },
+    {
+        id: 32,
+        titulo: "CURTO CIRCUITO BIFÁSICO",
+        preco: 180.00
+    },
+    {
+        id: 33,
+        titulo: "CURTO CIRCUITO TRIFÁSICO",
+        preco: 200.00
+    },
+    {
+        id: 34,
+        titulo: "INSTALAÇÃO DE MEDIDOR (Padrão de entrada - Monofásico 127V ou 220V)",
+        preco: 1300.00
+    },
+    {
+        id: 35,
+        titulo: "INSTALAÇÃO DE MEDIDOR (Padrão de entrada - Bifásico 220V)",
+        preco: 1500.00
+    },
+    {
+        id: 36,
+        titulo: "INSTALAÇÃO DE MEDIDOR (Padrão de entrada - Trifásico 220V)",
+        preco: 1700.00
+    },
+    {
+        id: 37,
+        titulo: "LIMPEZA EM TUBULAÇÃO DE AR CONDICIONADO (existente no local)",
+        preco: 60.00
+    },
+    {
+        id: 38,
+        titulo: "ALIMENTAÇÃO ELÉTRICA PARA AR CONDICIONADO",
+        preco: 110.00
+    },
+    {
+        id: 39,
+        titulo: "INSTALAÇÃO DE AR CONDICIONADO SPLIT INVERTER 9000 BTUS (Parede c/ parede)",
+        preco: 500.00
+    },
+    {
+        id: 40,
+        titulo: "INSTALAÇÃO DE AR CONDICIONADO SPLIT INVERTER 12000 BTUS (Parede c/ parede)",
+        preco: 500.00
+    },
+    {
+        id: 41,
+        titulo: "INSTALAÇÃO DE AR CONDICIONADO SPLIT INVERTER 18000 BTUS (Parede c/ parede)",
+        preco: 600.00
+    },
+    {
+        id: 42,
+        titulo: "INSTALAÇÃO DE AR CONDICIONADO SPLIT INVERTER 24000 BTUS (Parede c/ parede)",
+        preco: 700.00
+    },
+    {
+        id: 43,
+        titulo: "INSTALAÇÃO DE AR CONDICIONADO SPLIT INVERTER 30000 BTUS (Parede c/ parede)",
+        preco: 850.00
+    },
+    {
+        id: 44,
+        titulo: "INSTALAÇÃO DE AR CONDICIONADO ON/OFF CONVENCIONAL 9000 BTUS (Parede c/ parede)",
+        preco: 440.00
+    },
+    {
+        id: 45,
+        titulo: "INSTALAÇÃO DE AR CONDICIONADO ON/OFF CONVENCIONAL 12000 BTUS (Parede c/ parede)",
+        preco: 490.00
+    },
+    {
+        id: 46,
+        titulo: "INSTALAÇÃO DE AR CONDICIONADO ON/OFF CONVENCIONAL 18000 BTUS (Parede c/ parede)",
+        preco: 540.00
+    },
+    {
+        id: 47,
+        titulo: "INSTALAÇÃO DE AR CONDICIONADO ON/OFF CONVENCIONAL 24000 BTUS (Parede c/ parede)",
+        preco: 640.00
+    },
+    {
+        id: 48,
+        titulo: "INSTALAÇÃO DE AR CONDICIONADO ON/OFF CONVENCIONAL 30000 BTUS (Parede c/ parede)",
+        preco: 740.00
+    },
+    {
+        id: 49,
+        titulo: "ATENDIMENTO TÉCNICO EMERGENCIAL (Final de semana)",
+        preco: 240.00
+    },
+    {
+        id: 50,
+        titulo: "ATENDIMENTO TÉCNICO EMERGENCIAL (Durante a semana)",
+        preco: 180.00
+    },
+    {
+        id: 51,
+        titulo: "INSTALAÇÃO E MONTAGEM QDC (6 CIRCUITOS + DR + DPS)",
+        preco: 485.00
+    }
+];
+
+let servicosSelecionados = new Set();
+
+function carregarServicos() {
+    const listaServicos = document.getElementById('lista-servicos');
+    listaServicos.innerHTML = '';
+    
+    servicos.forEach(servico => {
+        const servicoHTML = `
+            <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
+                <div class="card service-card position-relative h-100">
+                    <div class="card-body d-flex flex-column">
+                        <div class="form-check">
+                            <input class="form-check-input service-checkbox" type="checkbox" 
+                                   id="servico-${servico.id}" 
+                                   onchange="atualizarTotal(${servico.id})">
+                            <label class="form-check-label" for="servico-${servico.id}">
+                                ${servico.titulo}
+                            </label>
+                        </div>
+                        <p class="card-text mt-2">
+                            <strong>R$ ${servico.preco.toFixed(2)}</strong>
+                        </p>
+                        <div class="quantity-control mt-2" style="display: none;">
+                            <label>Quantidade:</label>
+                            <input type="number" min="1" value="1" 
+                                   class="form-control" 
+                                   id="quantidade-${servico.id}"
+                                   onchange="atualizarTotal(${servico.id})">
+                        </div>
+                        <div class="service-tooltip">
+                            <img src="${getServiceImage(servico.id)}" 
+                                 alt="${servico.titulo}" 
+                                 class="img-fluid"
+                                 width="180" height="120">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+        listaServicos.innerHTML += servicoHTML;
+    });
+}
+
+function getServiceImage(servicoId) {
+    const imageMap = {
+        1: "https://casaeconceito.com.br/wp-content/uploads/2022/08/Imagem-abajures.jpg",
+        2: "https://www.abilumi.org.br/wp-content/uploads/2017/02/LedTubular-500x402.jpg",
+        3: "https://images.unsplash.com/photo-1565814329452-e1efa11c5b89?w=180",
+        4: "https://images.unsplash.com/photo-1572911336570-93898efd63b7?w=180",
+        5: "https://images.unsplash.com/photo-1621905252189-08b45d6a269e?w=180",
+    };
+    
+    return imageMap[servicoId] || "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=180";
+}
+
+function atualizarTotal(servicoId) {
+    const checkbox = document.getElementById(`servico-${servicoId}`);
+    const quantidadeControl = checkbox.closest('.card-body').querySelector('.quantity-control');
+    const quantidadeInput = document.getElementById(`quantidade-${servicoId}`);
+    
+    if (checkbox.checked) {
+        servicosSelecionados.add(servicoId);
+        quantidadeControl.style.display = 'block';
+    } else {
+        servicosSelecionados.delete(servicoId);
+        quantidadeControl.style.display = 'none';
+        quantidadeInput.value = 1;
+    }
+
+    const total = Array.from(servicosSelecionados).reduce((sum, id) => {
+        const servico = servicos.find(s => s.id === id);
+        const quantidade = parseInt(document.getElementById(`quantidade-${id}`).value) || 1;
+        return sum + (servico.preco * quantidade);
+    }, 0);
+
+    document.getElementById('total-valor').textContent = `R$ ${total.toFixed(2)}`;
+    document.getElementById('btn-contratar').disabled = servicosSelecionados.size === 0;
+}
+
+function contratarServicos() {
+    const servicosContratados = Array.from(servicosSelecionados).map(id => {
+        const servico = servicos.find(s => s.id === id);
+        const quantidade = parseInt(document.getElementById(`quantidade-${id}`).value) || 1;
+        return {
+            ...servico,
+            quantidade,
+            totalServico: servico.preco * quantidade
+        };
+    });
+
+    const total = servicosContratados.reduce((sum, servico) => sum + servico.totalServico, 0);
+    
+    const mensagem = `Olá! Gostaria de contratar os seguintes serviços:\n\n${
+        servicosContratados.map(s => 
+            `• ${s.titulo}\n   Quantidade: ${s.quantidade}\n   Valor unitário: R$ ${s.preco.toFixed(2)}\n   Subtotal: R$ ${s.totalServico.toFixed(2)}`
+        ).join('\n\n')
+    }\n\n*Total: R$ ${total.toFixed(2)}*\n\n*Obs: Os valores apresentados são referências e podem sofrer alterações de acordo com a complexidade e dificuldade do serviço.*`;
+
+    const whatsappNumber = "5531987138363";
+    const whatsappLink = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${encodeURIComponent(mensagem)}`;
+
+    window.open(whatsappLink, '_blank');
+}
+
+// Navegação entre páginas
+document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const pagina = this.getAttribute('href').replace('/', '');
+        mostrarPagina(pagina);
+    });
+});
+
+function mostrarPagina(pagina) {
+    document.getElementById('servicos').style.display = 'none';
+    document.getElementById('galeria').style.display = 'none';
+    document.getElementById('contato').style.display = 'none';
+    document.getElementById('sistema-solar').style.display = 'none';
+
+    switch(pagina) {
+        case '':
+            document.getElementById('servicos').style.display = 'block';
+            break;
+        case 'galeria':
+            document.getElementById('galeria').style.display = 'block';
+            break;
+        case 'contato':
+            document.getElementById('contato').style.display = 'block';
+            break;
+        case 'sistema-solar':
+            document.getElementById('sistema-solar').style.display = 'block';
+            break;
+    }
+}
+
+// Formulário de contato
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const nome = document.getElementById('nome').value;
+    const email = document.getElementById('email').value;
+    const mensagem = document.getElementById('mensagem').value;
+    
+    alert(`Mensagem enviada!\nNome: ${nome}\nEmail: ${email}\nMensagem: ${mensagem}`);
+    this.reset();
+});
+
+// Solar calculator functions
+document.getElementById('solarForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const valorConta = parseFloat(document.getElementById('contaEnergia').value);
+    const tarifaMedia = 0.95;
+    
+    let consumoMensal = (valorConta / tarifaMedia);
+    consumoMensal = consumoMensal * 1.4;
+    
+    const potenciaPainel = 0.55; 
+    const horasSolPorDia = 5; 
+    const eficiencia = 0.8; 
+    
+    const energiaNecessariaDiaria = (consumoMensal / 30);
+    const potenciaNecessaria = (energiaNecessariaDiaria / (horasSolPorDia * eficiencia));
+    const numeroPlacas = Math.ceil(potenciaNecessaria / potenciaPainel);
+    const potenciaTotalSistema = (numeroPlacas * potenciaPainel).toFixed(2);
+    
+    document.getElementById('consumoMensal').textContent = Math.round(consumoMensal);
+    document.getElementById('numeroPlacas').textContent = numeroPlacas;
+    document.getElementById('potenciaSistema').textContent = potenciaTotalSistema;
+    document.getElementById('resultadoSolar').style.display = 'block';
+});
+
+function contratarSistemaSolar() {
+    const consumoMensal = document.getElementById('consumoMensal').textContent;
+    const numeroPlacas = document.getElementById('numeroPlacas').textContent;
+    const potenciaSistema = document.getElementById('potenciaSistema').textContent;
+    const valorConta = document.getElementById('contaEnergia').value;
+    
+    const mensagem = `Olá! Gostaria de um orçamento para Sistema Solar com as seguintes características:\n\n` +
+        `• Valor atual da conta: R$ ${valorConta}\n` +
+        `• Consumo Mensal Estimado: ${consumoMensal} kWh\n` +
+        `• Número de Placas Necessárias: ${numeroPlacas}\n` +
+        `• Potência Total do Sistema: ${potenciaSistema} kWp\n\n` +
+        `Por favor, gostaria de receber mais informações sobre o sistema e um orçamento.`;
+
+    const whatsappNumber = "5531987138363";
+    const whatsappLink = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${encodeURIComponent(mensagem)}`;
+    
+    window.open(whatsappLink, '_blank');
+}
+
+// Carregar serviços ao iniciar
+window.onload = function() {
+    carregarServicos();
+    mostrarPagina(window.location.pathname.replace('/', ''));
+};
+
+function filtrarServicos() {
+    const searchTerm = document.getElementById('searchServicos').value.toLowerCase();
+    
+    // Only filter if search term has 3 or more characters
+    if (searchTerm.length >= 3) {
+        const listaServicos = document.getElementById('lista-servicos');
+        const cards = listaServicos.getElementsByClassName('col-lg-4');
+        
+        Array.from(cards).forEach(card => {
+            const titulo = card.querySelector('.form-check-label').textContent.toLowerCase();
+            if (titulo.includes(searchTerm)) {
+                card.style.display = '';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    } else {
+        // Show all services if search term is less than 3 characters
+        const cards = document.getElementById('lista-servicos').getElementsByClassName('col-lg-4');
+        Array.from(cards).forEach(card => {
+            card.style.display = '';
+        });
+    }
+}
+</script>
+
+<footer class="footer mt-5">
+    <div class="container text-center">
+        <p>&copy; 2024 Prime Elétrica - Todos os direitos reservados</p>
+    </div>
+</footer>
+
+</body>
+</html>
